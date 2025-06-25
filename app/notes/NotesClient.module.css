@@ -1,0 +1,84 @@
+.app {
+    width: 90%;
+    max-width: 1280px;
+    margin: 0px auto;
+    padding: 0 16px 16px;
+  }
+  
+  .toolbar {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .button {
+    padding: 6px 12px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .button:hover {
+    background-color: #0b5ed7;
+  }
+
+  .loaderWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+  }
+
+
+  .text {
+    font-size: 50px;
+    color:blue;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.errorWrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  text-align: center;
+}
+
+.message{
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+color: #0C0C0C;
+
+}
+
+.reset {
+  padding: 15px 38px;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  color: #FBFBFB;
+  width: 160px;
+  border-radius: 16px;
+  background:#0C0C0C;
+  border: none;
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.reset:hover,
+.reset:focus {
+  background: white;
+  color: #0C0C0C;
+}

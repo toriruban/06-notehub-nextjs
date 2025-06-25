@@ -9,20 +9,24 @@ import NoteList from '@/components/NoteList/NoteList';
 import Pagination from '@/components/Pagination/Pagination';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import NoteModal from '@/components/NoteModal/NoteModal';
-import css from './notes.module.css';
+import css from './NotesClient.module.css';
 import { FormValues } from '@/components/NoteForm/NoteForm';
 import { useDebounce } from 'use-debounce';
 import { FormikHelpers } from 'formik';
-import { PropagateLoader } from 'react-spinners';
+import Loading from '@/app/loading';
 
-const NotesClient = () => {
+type NotesClientProps = {
+  initialData: FetchNotesResponse;
+}
+
+const NotesClient = ({ initialData }: NotesClientProps) => {
   const [search, setSearch] = useState('');
   const [debouncedSearch] = useDebounce(search, 500);
   const [page, setPage] = useState(1);
   const [isModalOpen, setModalOpen] = useState(false);
   const queryClient = useQueryClient();
 
-  const { data, isFetching} = useQuery<FetchNotesResponse>({
+  const { data= initialData, isFetching } = useQuery<FetchNotesResponse>({
     queryKey: ['notes', debouncedSearch, page],
     queryFn: () => fetchNotes(debouncedSearch, page),
     placeholderData: keepPreviousData,
@@ -79,15 +83,19 @@ const NotesClient = () => {
         </button>
       </header>
       {data?.notes && data.notes.length > 0 && (
-        <NoteList notes={data.notes} />
+        <NoteList 
+        notes={data.notes} 
+        onDelete={handleDelete}       
+        />
       )}
-     {isFetching && (
-         <div className={css.loaderWrapper}>
-            <PropagateLoader color="blue" size={35} />
-         </div>
+      {isFetching && (
+          <Loading /> 
       )}
       {isModalOpen && (
-        <NoteModal onClose={() => setModalOpen(false)} />
+        <NoteModal 
+          onClose={() => setModalOpen(false)} 
+          onSubmit={ handleCreate }
+        />
       )}
     </div>
   );

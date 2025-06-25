@@ -5,6 +5,7 @@ import css from '../NoteList/NoteList.module.css';
 
 export interface NoteListProps {
   notes: Note[];
+  onDelete: (id: number) => void;
 }
 
 export default function NoteList({ notes }: NoteListProps) {
