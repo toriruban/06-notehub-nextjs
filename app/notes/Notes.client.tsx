@@ -26,7 +26,7 @@ const NotesClient = ({ initialData }: NotesClientProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const queryClient = useQueryClient();
 
-  const { data= initialData, isFetching } = useQuery<FetchNotesResponse>({
+  const { data= initialData, isLoading } = useQuery<FetchNotesResponse>({
     queryKey: ['notes', debouncedSearch, page],
     queryFn: () => fetchNotes(debouncedSearch, page),
     placeholderData: keepPreviousData,
@@ -88,7 +88,7 @@ const NotesClient = ({ initialData }: NotesClientProps) => {
         onDelete={handleDelete}       
         />
       )}
-      {isFetching && (
+      {isLoading && (
           <Loading /> 
       )}
       {isModalOpen && (

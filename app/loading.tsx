@@ -1,5 +1,5 @@
-// loading.tsx
 import css from './notes/NotesClient.module.css';
+
 import {PropagateLoader } from 'react-spinners'
 
 const Loading = () => (
