@@ -59,7 +59,6 @@ const NotesClient = ({ initialData }: NotesClientProps) => {
     });
   };
 
-  const handleDelete = (id: number) => deleteMutation.mutate(id);
   const handlePageChange = (newPage: number) => setPage(newPage);
   const handleSearch = (value: string) => {
     setSearch(value);
@@ -85,7 +84,6 @@ const NotesClient = ({ initialData }: NotesClientProps) => {
       {data?.notes && data.notes.length > 0 && (
         <NoteList 
         notes={data.notes} 
-        onDelete={handleDelete}       
         />
       )}
       {isLoading && (

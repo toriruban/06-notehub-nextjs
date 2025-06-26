@@ -6,15 +6,15 @@ import Link from 'next/link';
 
 export interface NoteListProps {
   notes: Note[];
-  onDelete: (id: number) => void;
 }
 
 export default function NoteList({ notes }: NoteListProps) {
   const queryClient = useQueryClient();
+  const handleDelete = (id: number) => deleteMutation.mutate(id);
 
   const deleteMutation = useMutation({
     mutationFn: (id: number) => {
-      return (deleteNote(id));
+      return deleteNote(id);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] });
@@ -36,7 +36,7 @@ export default function NoteList({ notes }: NoteListProps) {
             <Link href={`/notes/${note.id}`} className={css.details}>View Details</Link>
             <button
               className={css.button}
-              onClick={() => deleteMutation.mutate(note.id)}
+              onClick={() => handleDelete(note.id)}
               disabled={isPending}
               >  Delete
             </button>
