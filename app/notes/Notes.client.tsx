@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query';
 import { toast, Toaster } from 'react-hot-toast';
-import { fetchNotes, createNote, deleteNote } from '@/lib/api';
+import { fetchNotes, createNote } from '@/lib/api';
 import { FetchNotesResponse } from '@/lib/api'; 
 import NoteList from '@/components/NoteList/NoteList';
 import Pagination from '@/components/Pagination/Pagination';
@@ -38,14 +38,6 @@ const NotesClient = ({ initialData }: NotesClientProps) => {
       queryClient.invalidateQueries({ queryKey: ['notes'] });
       setModalOpen(false);
       toast.success('Note created!');
-    },
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: deleteNote,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['notes'] });
-      toast.success('Note deleted!');
     },
   });
 
