@@ -27,10 +27,8 @@ const initialValues: FormValues = {
   content: '',
   tag: 'Todo',
 };
-
 export interface NoteFormProps {
   onClose: () => void;
-  onSubmit: (values: FormValues, actions: FormikHelpers<FormValues>) => void;
 }
 
 export default function NoteForm({ onClose }: NoteFormProps) {
