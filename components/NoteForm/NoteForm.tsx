@@ -1,7 +1,5 @@
 import { FormikHelpers, Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createNote } from '../../lib/api';
 import css from './NoteForm.module.css';
 import { NoteTag } from '../../types/note';
 
@@ -32,29 +30,12 @@ export interface NoteFormProps {
   onSubmit: (values: FormValues, actions: FormikHelpers<FormValues>) => void;
 }
 
-export default function NoteForm({ onClose }: NoteFormProps) {
-  const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: createNote,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['notes'] });
-      onClose();
-    },
-  });
-
-  const handleSubmit = (values: FormValues, actions: FormikHelpers<FormValues>) => {
-    mutation.mutate(values, {
-      onSuccess: () => {
-        actions.resetForm();
-      }
-    });
-  };
-
+export default function NoteForm({ onClose, onSubmit }: NoteFormProps) {
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
     >
       {({ isSubmitting }) => (
         <Form className={css.form}>

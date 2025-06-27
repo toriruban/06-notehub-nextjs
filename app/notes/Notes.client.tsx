@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query';
 import { toast, Toaster } from 'react-hot-toast';
@@ -32,7 +31,6 @@ const NotesClient = ({ initialData }: NotesClientProps) => {
     placeholderData: keepPreviousData,
     initialData,
   });
-
   const createMutation = useMutation({
     mutationFn: createNote,
     onSuccess: () => {
@@ -41,23 +39,19 @@ const NotesClient = ({ initialData }: NotesClientProps) => {
       toast.success('Note created!');
     },
   });
-
   const handleCreate = (values: FormValues, actions: FormikHelpers<FormValues>) => {
     createMutation.mutate(values, {
       onSuccess: () => {
         actions.resetForm();
         setModalOpen(false);
-        toast.success('Note created!');
       }
     });
   };
-
   const handlePageChange = (newPage: number) => setPage(newPage);
   const handleSearch = (value: string) => {
     setSearch(value);
     setPage(1);
   };
-
   return (
     <div className={css.app}>
       <Toaster position="top-center" />
