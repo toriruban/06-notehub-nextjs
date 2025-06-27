@@ -30,7 +30,6 @@ const initialValues: FormValues = {
 export interface NoteFormProps {
   onClose: () => void;
   onSubmit: (values: FormValues, actions: FormikHelpers<FormValues>) => void;
-  inputRef?: React.RefObject<HTMLInputElement | null>;
 }
 
 export default function NoteForm({ onClose }: NoteFormProps) {

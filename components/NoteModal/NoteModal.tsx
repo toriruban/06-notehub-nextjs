@@ -27,19 +27,13 @@ export default function NoteModal({ onClose, onSubmit }: NoteModalProps) {
   const handleBackdropClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();
   }, [onClose]);
-
-const inputRef = useRef<HTMLInputElement>(null);
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
-
+  
   return createPortal(
     <div className={css.backdrop} role="dialog" aria-modal="true" onClick={handleBackdropClick}>
       <div className={css.modal}>
         <NoteForm 
           onClose={onClose} 
           onSubmit={onSubmit}
-          inputRef={inputRef}
         />
       </div>
     </div>,
