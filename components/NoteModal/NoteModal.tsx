@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import NoteForm from '../NoteForm/NoteForm';
 import { FormValues } from '../NoteForm/NoteForm';
@@ -27,7 +27,7 @@ export default function NoteModal({ onClose, onSubmit }: NoteModalProps) {
   const handleBackdropClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();
   }, [onClose]);
-  
+
   return createPortal(
     <div className={css.backdrop} role="dialog" aria-modal="true" onClick={handleBackdropClick}>
       <div className={css.modal}>
