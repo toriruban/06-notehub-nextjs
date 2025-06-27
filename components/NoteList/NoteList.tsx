@@ -3,15 +3,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteNote } from '../../lib/api';
 import css from '../NoteList/NoteList.module.css';
 import Link from 'next/link';
-
 export interface NoteListProps {
   notes: Note[];
 }
-
 export default function NoteList({ notes }: NoteListProps) {
   const queryClient = useQueryClient();
   const handleDelete = (id: number) => deleteMutation.mutate(id);
-
   const deleteMutation = useMutation({
     mutationFn: (id: number) => {
       return deleteNote(id);
@@ -20,9 +17,7 @@ export default function NoteList({ notes }: NoteListProps) {
       queryClient.invalidateQueries({ queryKey: ['notes'] });
     }, 
   });
-
   const { isPending } = deleteMutation;
-
   if (notes.length === 0) return null;
 
   return (
