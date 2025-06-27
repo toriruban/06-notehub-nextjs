@@ -8,9 +8,11 @@ type Props = {
 }
 
 const TanStackProvider = ( {children} : Props ) => {
-    const [queryClient] = useState(new QueryClient ())
-    return <QueryClientProvider client={ queryClient }>{ children }
-    </QueryClientProvider>
+    const [queryClient] = useState(() => new QueryClient())
+    return (<QueryClientProvider 
+          client={ queryClient }>{ children }
+          </QueryClientProvider>
+    )
 }
 
 export default TanStackProvider;
