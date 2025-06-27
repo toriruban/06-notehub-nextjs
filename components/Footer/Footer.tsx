@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import css from '../Footer/Footer.module.css';
+import css from './Footer.module.css';
 
 const Footer = () => {
     return (
@@ -10,7 +10,7 @@ const Footer = () => {
       <p>Developer: Viktoriia</p>
       <p>
         Contact us:
-        <Link href="<mailto:student@notehub.app>"> student@notehub.app</Link>
+        <Link href="mailto:student@notehub.app"> student@notehub.app</Link>
       </p>
     </div>
   </div>
