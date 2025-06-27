@@ -1,7 +1,7 @@
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import './global.css';
-import TanStackProvider from '../components/TanStackProvider/TanStackProvider';
+import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import React from 'react';
 
 export default function RootLayout({
