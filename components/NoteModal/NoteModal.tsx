@@ -1,10 +1,13 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import NoteForm from '../NoteForm/NoteForm';
+import { FormValues } from '../NoteForm/NoteForm';
+import { FormikHelpers } from 'formik';
 import css from './NoteModal.module.css';
 
 export interface NoteModalProps {
   onClose: () => void;
+  onSubmit: (values: FormValues, actions: FormikHelpers<FormValues>) => void;
 }
 
 export default function NoteModal({ onClose }: NoteModalProps) {
