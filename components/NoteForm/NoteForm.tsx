@@ -1,7 +1,6 @@
 import { FormikHelpers, Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import  inputRef from '../NoteModal/NoteModal'
 import { createNote } from '../../lib/api';
 import css from './NoteForm.module.css';
 import { NoteTag } from '../../types/note';
@@ -30,6 +29,8 @@ const initialValues: FormValues = {
 };
 export interface NoteFormProps {
   onClose: () => void;
+  onSubmit: (values: FormValues, actions: FormikHelpers<FormValues>) => void;
+  inputRef?: React.RefObject<HTMLInputElement | null>;
 }
 
 export default function NoteForm({ onClose }: NoteFormProps) {
@@ -60,7 +61,7 @@ export default function NoteForm({ onClose }: NoteFormProps) {
         <Form className={css.form}>
          <div className={css.formGroup}>
             <label htmlFor="title">Title</label>
-            <Field innerRef={inputRef} id="title" name="title" type="text" className={css.input} />
+            <Field id="title" name="title" type="text" className={css.input} />
             <ErrorMessage name="title" component="span" className={css.error} />
           </div>
 

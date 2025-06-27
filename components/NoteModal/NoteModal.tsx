@@ -1,3 +1,4 @@
+'use client';
 import { useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import NoteForm from '../NoteForm/NoteForm';
@@ -10,7 +11,7 @@ export interface NoteModalProps {
   onSubmit: (values: FormValues, actions: FormikHelpers<FormValues>) => void;
 }
 
-export default function NoteModal({ onClose }: NoteModalProps) {
+export default function NoteModal({ onClose, onSubmit }: NoteModalProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.code === 'Escape') onClose();
@@ -37,6 +38,8 @@ const inputRef = useRef<HTMLInputElement>(null);
       <div className={css.modal}>
         <NoteForm 
           onClose={onClose} 
+          onSubmit={onSubmit}
+          inputRef={inputRef}
         />
       </div>
     </div>,
