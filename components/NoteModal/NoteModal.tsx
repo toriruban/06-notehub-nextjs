@@ -1,17 +1,13 @@
-'use client';
 import { useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import NoteForm from '../NoteForm/NoteForm';
-import { FormValues } from '../NoteForm/NoteForm';
-import { FormikHelpers } from 'formik';
 import css from './NoteModal.module.css';
 
 export interface NoteModalProps {
   onClose: () => void;
-  onSubmit: (values: FormValues, actions: FormikHelpers<FormValues>) => void;
 }
 
-export default function NoteModal({ onClose, onSubmit }: NoteModalProps) {
+export default function NoteModal({ onClose }: NoteModalProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.code === 'Escape') onClose();
@@ -31,10 +27,7 @@ export default function NoteModal({ onClose, onSubmit }: NoteModalProps) {
   return createPortal(
     <div className={css.backdrop} role="dialog" aria-modal="true" onClick={handleBackdropClick}>
       <div className={css.modal}>
-        <NoteForm 
-          onClose={onClose} 
-          onSubmit={onSubmit}
-        />
+        <NoteForm onClose={onClose} />
       </div>
     </div>,
     document.body

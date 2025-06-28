@@ -1,18 +1,14 @@
 "use client";
 import { useState } from 'react';
-import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query';
-import { toast, Toaster } from 'react-hot-toast';
-import { fetchNotes, createNote } from '@/lib/api';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
+import { fetchNotes } from '@/lib/api';
 import { FetchNotesResponse } from '@/lib/api'; 
 import NoteList from '@/components/NoteList/NoteList';
 import Pagination from '@/components/Pagination/Pagination';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import NoteModal from '@/components/NoteModal/NoteModal';
 import css from './NotesClient.module.css';
-import { FormValues } from '@/components/NoteForm/NoteForm';
 import { useDebounce } from 'use-debounce';
-import { FormikHelpers } from 'formik';
-import Loading from '@/app/loading';
 
 type NotesClientProps = {
   initialData: FetchNotesResponse;
@@ -23,30 +19,13 @@ const NotesClient = ({ initialData }: NotesClientProps) => {
   const [debouncedSearch] = useDebounce(search, 500);
   const [page, setPage] = useState(1);
   const [isModalOpen, setModalOpen] = useState(false);
-  const queryClient = useQueryClient();
 
-  const { data , isLoading } = useQuery<FetchNotesResponse>({
+  const { data } = useQuery<FetchNotesResponse>({
     queryKey: ['notes', debouncedSearch, page],
     queryFn: () => fetchNotes(debouncedSearch, page),
     placeholderData: keepPreviousData,
     initialData,
   });
-  const createMutation = useMutation({
-    mutationFn: createNote,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['notes'] });
-      setModalOpen(false);
-      toast.success('Note created!');
-    },
-  });
-  const handleCreate = (values: FormValues, actions: FormikHelpers<FormValues>) => {
-    createMutation.mutate(values, {
-      onSuccess: () => {
-        actions.resetForm();
-        setModalOpen(false);
-      }
-    });
-  };
   const handlePageChange = (newPage: number) => setPage(newPage);
   const handleSearch = (value: string) => {
     setSearch(value);
@@ -54,9 +33,8 @@ const NotesClient = ({ initialData }: NotesClientProps) => {
   };
   return (
     <div className={css.app}>
-      <Toaster position="top-center" />
       <header className={css.toolbar}>
-        <SearchBox value={search} onSearch={handleSearch} />
+        <SearchBox onSearch={handleSearch} />
         {data && data.totalPages > 1 && (
           <Pagination
             currentPage={page}
@@ -73,14 +51,8 @@ const NotesClient = ({ initialData }: NotesClientProps) => {
         notes={data.notes} 
         />
       )}
-      {isLoading && (
-          <Loading /> 
-      )}
       {isModalOpen && (
-        <NoteModal 
-          onClose={() => setModalOpen(false)} 
-          onSubmit={ handleCreate }
-        />
+       <NoteModal onClose={() => setModalOpen(false)} />
       )}
     </div>
   );
